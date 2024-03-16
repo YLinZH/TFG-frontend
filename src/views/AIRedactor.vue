@@ -1,0 +1,220 @@
+<template>
+    <div class="message-container">
+      <div class="info-section">
+        <textarea class="textarea" v-model="userInput" placeholder="Type your text here"></textarea>
+        <div class="result">
+          <div v-if="result">
+            <!-- <div style="display: flex; align-items: center; color: white;" v-if="result">
+              <svg :title="result.choices[0].message.role" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                fill="white" class="bi bi-robot" viewBox="0 0 16 16">
+                <path
+                  d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135" />
+                <path
+                  d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5" />
+              </svg>:
+            </div> -->
+            <!-- <p style="color: white;">{{ result.choices[0].message.content }}</p> -->
+            <p style="color: white;">{{ result }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="btnContainer">
+        <div class="btn">
+            <button class="clickHereBtn" @click="sendTestText">Send</button>
+        </div>
+    </div>
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue';
+  import axios from 'axios';
+  
+  const userInput = ref('');
+  const result = ref(null);
+  
+  const sendMessage = async () => {
+    try {
+      const API_KEY = import.meta.env.VITE_API_KEY
+      const modelId = import.meta.env.VITE_MODEL_ID;
+      const header = {
+        'Authorization': `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json'
+      }
+  
+      const data = {
+        model: modelId,
+        messages: [{ role: "user", content: "In order to make it easier for me to understand, please explain the following text in simpler words: \n" + userInput.value }],
+        max_tokens: 100
+      }
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', data, {
+        headers: header
+      });
+      result.value = response.data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const sendTestText= async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/testText');
+      result.value = response.data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  </script>
+  
+  <style scoped>
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    height: 60vh;
+  }
+  
+  .info-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .textarea {
+    width: 40vw;
+    height: 40vh;
+    font-size: 16px;
+    margin-right: 10px;
+    background-color: transparent;
+    color: white;
+    padding: 5px;
+    resize: none;
+  }
+  
+  .result {
+    width: 40vw;
+    height: 40vh;
+    border: 2px dotted white;
+    border-radius: 5px;
+    font-size: 16px;
+    color: white;
+    padding: 5px;
+  }
+  
+  /* button {
+    margin-top: 30px;
+    width: 10vw;
+    height: 5vh;
+  } */
+  .btnContainer .btn{
+            position: relative;
+            width: 155px;
+            height: 50px;
+            margin: 20px;
+        }
+
+        .btnContainer .btn .clickHereBtn{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0,0.2);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            color: #FFFADD;
+            z-index: 1;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-decoration: none;
+            overflow: hidden;
+            transition: .5s;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+        }
+
+        .btnContainer .btn:hover .clickHereBtn{
+            letter-spacing: 3px;
+        }
+
+        .btnContainer .btn .clickHereBtn::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to left,rgba(255,255,255,0.15), transparent);
+            transform: skewX(45deg) translateX(0);
+            transition: .5s;
+        }
+
+        .btnContainer .btn:hover .clickHereBtn::before{
+            transform: skewX(45deg) translateX(200%);
+        }
+
+        .btnContainer .btn::before{
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform:  translateX(-50%);
+            bottom: -5px;
+            width: 30px;
+            height: 10px;
+            transition: 0.5s;
+            transition-delay: 0s;
+            background: #ff1f71;
+            box-shadow: 0 0 5px #ff1f71,
+            0 0 15px #ff1f71,
+            0 0 30px #ff1f71,
+            0 0 60px #ff1f71;
+        }
+
+        .btnContainer .btn:hover::before{
+            bottom: 0;
+            height: 50%;
+            width: 80%;
+            border-radius: 30px;
+            transition-delay: .5s;
+        }
+
+        .btnContainer .btn::after{
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform:  translateX(-50%);
+            top: -5px;
+            width: 30px;
+            height: 10px;
+            transition: 0.5s;
+            transition-delay: 0s;
+            background: #ff1f71;
+            box-shadow: 0 0 5px #ff1f71,
+            0 0 15px #ff1f71,
+            0 0 30px #ff1f71,
+            0 0 60px #ff1f71;
+        }
+
+        .btnContainer .btn:hover::after{
+            top: 0;
+            height: 50%;
+            width: 80%;
+            border-radius: 30px;
+            transition-delay: .5s;
+        }
+
+::placeholder {
+  color: white;
+  opacity: 0.7; /* Firefox */
+}
+  </style>

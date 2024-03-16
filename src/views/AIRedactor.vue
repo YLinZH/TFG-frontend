@@ -20,7 +20,7 @@
       </div>
       <div class="btnContainer">
         <div class="btn">
-            <button class="clickHereBtn" @click="sendTestText">Send</button>
+            <button class="clickHereBtn" @click="sendTestTextProduction">Send</button>
         </div>
     </div>
     </div>
@@ -59,6 +59,15 @@
   const sendTestText= async () => {
     try {
       const response = await axios.get('http://localhost:8000/testText');
+      result.value = response.data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const sendTestTextProduction= async () => {
+    try {
+      const response = await axios.get('https://tfg-backend-mu.vercel.app/testText');
       result.value = response.data;
     } catch (error) {
       console.error('Error:', error);

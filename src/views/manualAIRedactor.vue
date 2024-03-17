@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        Manual of AI Redactor
     </div>
 </template>
 

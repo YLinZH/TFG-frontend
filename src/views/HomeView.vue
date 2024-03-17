@@ -1,29 +1,21 @@
 <template>
-  <div class="home">
-    <h1 class="welcome">
-      Welcome to AIAccessibility
-    </h1>
-  <p class="content">
-  There are two significant AI applications for the accessibility: <strong>AIRedactor</strong> & <strong>AIxxx</strong>
-</p>
+  <div class="vh-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+      <h1>Welcome to AIAccessibility</h1>
+      <p>There are two significant AI applications for the accessibility: 
+        <strong><RouterLink class="inline-link" to="/manualAIRedactor">AI Redactor</RouterLink></strong> & 
+        <strong><RouterLink class="inline-link" to="/manualAISceneGenerator">AI Scene Generator</RouterLink></strong>.</p>
+    </div>
   </div>
 </template>
 
 <script setup>
-
+import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>
-.welcome{
-  position: fixed;
-  left: 50%;
-  top: 40%;
-  translate: -50% -50%;
-}
-.content{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
+.inline-link {
+  display: inline-block;
+  margin-right: 8px; 
 }
 </style>

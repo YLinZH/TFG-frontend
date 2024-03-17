@@ -1,5 +1,5 @@
 <template>
-    <div class="message-container">
+    <div class="container">
       <div class="info-section">
         <textarea class="textarea" v-model="userInput" placeholder="Type your text here"></textarea>
         <div class="result">
@@ -76,13 +76,13 @@
   </script>
   
   <style scoped>
-  .message-container {
+  .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80vw;
-    height: 60vh;
+    width: 100vw;
+    height: 100vh;
   }
   
   .info-section {
@@ -96,7 +96,6 @@
     width: 40vw;
     height: 40vh;
     font-size: 16px;
-    margin-right: 10px;
     background-color: transparent;
     color: white;
     padding: 5px;
@@ -106,18 +105,13 @@
   .result {
     width: 40vw;
     height: 40vh;
-    border: 2px dotted white;
+    border: 2px solid white;
     border-radius: 5px;
     font-size: 16px;
     color: white;
     padding: 5px;
   }
   
-  /* button {
-    margin-top: 30px;
-    width: 10vw;
-    height: 5vh;
-  } */
   .btnContainer .btn{
             position: relative;
             width: 155px;
@@ -226,4 +220,25 @@
   color: white;
   opacity: 0.7; /* Firefox */
 }
+
+@media only screen and (max-width: 540px) {
+
+  .textarea, .result {
+    width: 80vw;
+  }
+  .info-section {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .textarea {
+    margin: 10px 0;
+    height: 10vh;
+ 
+  }
+
+}
+
   </style>

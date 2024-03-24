@@ -19,7 +19,7 @@
       </div>
       <div class="btnContainer">
         <div class="btn">
-            <button class="clickHereBtn" @click="sendTextProduction">Send</button>
+            <button class="clickHereBtn" @click="sendText">Send</button>
         </div>
     </div>
     </div>

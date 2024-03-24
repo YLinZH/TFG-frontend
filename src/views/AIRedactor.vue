@@ -19,7 +19,7 @@
       </div>
       <div class="btnContainer">
         <div class="btn">
-            <button class="clickHereBtn" @click="sendHelloWorld">Send</button>
+            <button class="clickHereBtn" @click="sendTextProduction">Send</button>
         </div>
     </div>
     </div>
@@ -43,7 +43,7 @@
     }
   }
 
-  const sendTestText= async () => {
+  const sendText= async () => {
     try {
       const response = await axios.post('http://localhost:8000/simplify-text', {
         prompt: userInput.value
@@ -54,7 +54,7 @@
     }
   };
   
-  const sendTestTextProduction= async () => {
+  const sendTextProduction= async () => {
     try {
       const response = await axios.post('https://tfg-backend-mu.vercel.app/simplify-text', {
         prompt: userInput.value

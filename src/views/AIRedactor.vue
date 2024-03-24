@@ -22,9 +22,6 @@
         <button class="clickHereBtn" @click="sendTextProduction">Send</button>
       </div>
     </div>
-    <div class="test">
-      <button class="btn btn-primary" @click="sendText">Send</button>
-    </div>
   </div>
 </template>
 

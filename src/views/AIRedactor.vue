@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <span class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput" v-model="language" placeholder="Type the language" /></span> 
     <div class="info-section">
       <textarea class="textarea" v-model="userInput" placeholder="Type your text here"></textarea>
       <div class="result">
@@ -19,7 +20,7 @@
     </div>
     <div class="btnContainer">
       <div class="btn">
-        <button class="clickHereBtn" @click="sendTextProduction">Send</button>
+        <button class="clickHereBtn" @click="sendText">Send</button>
       </div>
     </div>
   </div>
@@ -31,6 +32,7 @@ import axios from 'axios';
 
 const userInput = ref('');
 const result = ref(null);
+const language = ref("català")
 
 const sendHelloWorld = async () => {
   try {
@@ -46,7 +48,8 @@ const sendHelloWorld = async () => {
 const sendText = async () => {
   try {
     const response = await axios.post('http://localhost:8000/simplify-text', {
-      prompt: userInput.value
+      prompt: userInput.value,
+      language: language.value
     });
     result.value = response.data;
   } catch (error) {
@@ -57,7 +60,8 @@ const sendText = async () => {
 const sendTextProduction = async () => {
   try {
     const response = await axios.post('https://tfg-backend-mu.vercel.app/simplify-text', {
-      prompt: userInput.value
+      prompt: userInput.value,
+      language: language.value
     });
     result.value = response.data;
   } catch (error) {
@@ -74,6 +78,27 @@ const sendTextProduction = async () => {
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+.languageLabel{
+  margin-right: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.languageInput{
+  background-color: transparent !important;
+  width: 30%;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+}
+
+.languageArea{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .info-section {

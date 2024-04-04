@@ -7,9 +7,8 @@ import navigationBar from '@/components/navBar.vue';
 <template>
   <div id="main">
     <navigationBar></navigationBar>
-    <div class="content-container">
-      <RouterView />
-    </div>
+    <RouterView/>
+
   </div>
 </template>
 
@@ -35,12 +34,5 @@ body{
   flex-direction: column;
   height: 100%;
   width: 100%;
-}
-
-.content-container {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 </style>

@@ -2,9 +2,12 @@
   <div class="vh-100 d-flex align-items-center justify-content-center">
     <div class="text-center">
       <h1>Welcome to AIAccessibility</h1>
-      <p>There are two significant AI applications for the accessibility: 
+      <p class="description">There are two significant AI applications for the accessibility: 
         <strong><RouterLink class="inline-link" to="/manualAIRedactor">AI Redactor</RouterLink></strong> & 
         <strong><RouterLink class="inline-link" to="/manualAISceneGenerator">AI Scene Generator</RouterLink></strong>.</p>
+        <p class="privacity">
+          We assure you that we do not store any private data. The information provided by users is securely transmitted to ChatGPT.
+        </p>
     </div>
   </div>
 </template>
@@ -17,5 +20,11 @@ import { RouterLink } from 'vue-router'
 .inline-link {
   display: inline-block;
   margin-right: 8px; 
+}
+.description{
+  font-size: 20px;
+}
+.privacity{
+  font-size: 20px;
 }
 </style>

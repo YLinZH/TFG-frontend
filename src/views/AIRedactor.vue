@@ -1,8 +1,17 @@
 <template>
-  <div class="container">
-    <span class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput" v-model="language" placeholder="Type the language" /></span> 
+  <div class="container-fluid">
+    <h3 class="description" v-if="userInput.length === 0">Enter the language you want and input the text in the box, then click the send button to proceed!</h3>
+    <div class="settingArea">
+      <div class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput" v-model="language" placeholder="Type the language" /></div> 
+    <div class="btnContainer" :class="{ 'appear-button': userInput.length > 0 }" v-if="userInput.length > 0">
+      <div class="btn">
+        <button class="clickHereBtn" @click="sendTextProduction">Send</button>
+      </div>
+    </div>
+    </div>
     <div class="info-section">
-      <textarea class="textarea" v-model="userInput" placeholder="Type your text here"></textarea>
+      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here" 
+      @keydown.enter.prevent="handleEnter"></textarea>
       <div class="result">
         <div v-if="result">
           <div style="display: flex; align-items: center; color: white;" v-if="result">
@@ -18,11 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="btnContainer">
-      <div class="btn">
-        <button class="clickHereBtn" @click="sendTextProduction">Send</button>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -32,12 +37,24 @@ import axios from 'axios';
 
 const userInput = ref('');
 const result = ref(null);
-const language = ref("català")
+const language = ref("català");
+const textAreaRef = ref(null);
+
+
+const handleEnter = (event) => {
+  if (event.shiftKey) {
+    userInput.value += '\n';
+  } else {
+    sendTextProduction();
+    textAreaRef.value.blur();
+  }
+};
 
 const sendHelloWorld = async () => {
   try {
     const response = await axios.post('http://localhost:8000/hello', {
-      prompt: userInput.value
+      prompt: userInput.value,
+      language: language.value
     });
     result.value = response.data;
   } catch (error) {
@@ -68,18 +85,36 @@ const sendTextProduction = async () => {
     console.error('Error:', error);
   }
 };
+
 </script>
 
 <style scoped>
-.container {
+.container-fluid {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  height: 90vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
 
+.description{
+  position: absolute;
+  top: 0;
+  margin: 10px;
+}
+
+.settingArea{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: 55px;
+  margin: 20px;
+}
 .languageLabel{
   margin-right: 10px;
   font-size: 1rem;
@@ -87,18 +122,18 @@ const sendTextProduction = async () => {
 }
 
 .languageInput{
-  background-color: transparent !important;
-  width: 30%;
+  background-color: transparent;
   color: #fff;
   border: 1px solid #fff;
   border-radius: 5px;
+  flex-grow: 1;
 }
 
 .languageArea{
-  width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  width: 30%;
 }
 
 .info-section {
@@ -238,6 +273,20 @@ const sendTextProduction = async () => {
   opacity: 0.7;
   /* Firefox */
 }
+.appear-button {
+  animation: appear 0.5s ease-in;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @media only screen and (max-width: 540px) {
 
@@ -257,6 +306,15 @@ const sendTextProduction = async () => {
     margin: 10px 0;
     height: 10vh;
 
+  }
+
+  .settingArea{
+    flex-direction: column-reverse;
+    height: 100px;
+  }
+
+  .btnContainer{
+    scale: 0.7;
   }
 
 }

@@ -1,17 +1,19 @@
 <template>
   <div class="container-fluid">
-    <h3 class="description" v-if="userInput.length === 0">Enter the language you want and input the text in the box, then click the send button to proceed!</h3>
-    <div class="settingArea">
-      <div class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput" v-model="language" placeholder="Type the language" /></div> 
-    <div class="btnContainer" :class="{ 'appear-button': userInput.length > 0 }" v-if="userInput.length > 0">
-      <div class="btn">
-        <button class="clickHereBtn" @click="sendTextProduction">Send</button>
+    <h3 class="description" v-if="userInput.length === 0 && !isMessageSended">Enter the language you want and input the
+      text in the box, then click the send button to proceed!</h3>
+    <div class="settingArea" v-if="!isMessageSended">
+      <div class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput"
+          v-model="language" placeholder="Type the language" /></div>
+      <div class="btnContainer" :class="{ 'appear-button': userInput.length > 0 }" v-if="userInput.length > 0">
+        <div class="btn">
+          <button class="clickHereBtn" @click="sendTextProduction">Send</button>
+        </div>
       </div>
     </div>
-    </div>
-    <div class="info-section">
-      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here" 
-      @keydown.enter.prevent="handleEnter"></textarea>
+    <div class="info-section" v-if="!isMessageSended">
+      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here"
+        @keydown.enter.prevent="handleEnter"></textarea>
       <div class="result">
         <div v-if="result">
           <div style="display: flex; align-items: center; color: white;" v-if="result">
@@ -27,19 +29,22 @@
         </div>
       </div>
     </div>
-
+    <div v-else-if="isMessageSended && !result">
+      <loadingComponent></loadingComponent>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import loadingComponent from "@/components/loading.vue"
 
 const userInput = ref('');
 const result = ref(null);
 const language = ref("català");
 const textAreaRef = ref(null);
-
+const isMessageSended = ref(false);
 
 const handleEnter = (event) => {
   if (event.shiftKey) {
@@ -64,11 +69,14 @@ const sendHelloWorld = async () => {
 
 const sendText = async () => {
   try {
+    isMessageSended.value = true;
+    result.value = null;
     const response = await axios.post('http://localhost:8000/simplify-text', {
       prompt: userInput.value,
       language: language.value
     });
     result.value = response.data;
+    isMessageSended.value = false;
   } catch (error) {
     console.error('Error:', error);
   }
@@ -76,11 +84,14 @@ const sendText = async () => {
 
 const sendTextProduction = async () => {
   try {
+    isMessageSended.value = true;
+    result.value = null;
     const response = await axios.post('https://tfg-backend-mu.vercel.app/simplify-text', {
       prompt: userInput.value,
       language: language.value
     });
     result.value = response.data;
+    isMessageSended.value = false;
   } catch (error) {
     console.error('Error:', error);
   }
@@ -100,13 +111,13 @@ const sendTextProduction = async () => {
   position: relative;
 }
 
-.description{
+.description {
   position: absolute;
   top: 0;
   margin: 10px;
 }
 
-.settingArea{
+.settingArea {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -115,13 +126,14 @@ const sendTextProduction = async () => {
   height: 55px;
   margin: 20px;
 }
-.languageLabel{
+
+.languageLabel {
   margin-right: 10px;
   font-size: 1rem;
   text-align: center;
 }
 
-.languageInput{
+.languageInput {
   background-color: transparent;
   color: #fff;
   border: 1px solid #fff;
@@ -129,7 +141,7 @@ const sendTextProduction = async () => {
   flex-grow: 1;
 }
 
-.languageArea{
+.languageArea {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -271,8 +283,8 @@ const sendTextProduction = async () => {
 ::placeholder {
   color: white;
   opacity: 0.7;
-  /* Firefox */
 }
+
 .appear-button {
   animation: appear 0.5s ease-in;
 }
@@ -282,6 +294,7 @@ const sendTextProduction = async () => {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -308,12 +321,12 @@ const sendTextProduction = async () => {
 
   }
 
-  .settingArea{
+  .settingArea {
     flex-direction: column-reverse;
     height: 100px;
   }
 
-  .btnContainer{
+  .btnContainer {
     scale: 0.7;
   }
 

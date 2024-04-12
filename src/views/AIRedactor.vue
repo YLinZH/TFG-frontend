@@ -12,8 +12,7 @@
       </div>
     </div>
     <div class="info-section" v-if="!isMessageSended">
-      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here"
-        @keydown.enter.prevent="handleEnter"></textarea>
+      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here"></textarea>
       <div class="result">
         <div v-if="result">
           <div style="display: flex; align-items: center; color: white;" v-if="result">
@@ -25,7 +24,7 @@
                 d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5" />
             </svg>:
           </div>
-          <p style="color: white;">{{ result }}</p>
+          <div v-html="result" style="white-space: pre-wrap;"></div>
         </div>
       </div>
     </div>
@@ -46,14 +45,6 @@ const language = ref("català");
 const textAreaRef = ref(null);
 const isMessageSended = ref(false);
 
-const handleEnter = (event) => {
-  if (event.shiftKey) {
-    userInput.value += '\n';
-  } else {
-    sendTextProduction();
-    textAreaRef.value.blur();
-  }
-};
 
 const sendHelloWorld = async () => {
   try {

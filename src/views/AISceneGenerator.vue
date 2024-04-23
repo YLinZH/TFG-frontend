@@ -2,7 +2,7 @@
     <div class="container-fluid aiSceneGenerator">
         <h3 class="description" v-if="!isMessageSended">Fill the form below to generate an social story!</h3>
         <div class="formSection" v-if="!isMessageSended">
-            <form @submit="generateStoryProduction">
+            <form>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="inputName" class="form-label">Name</label>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Generate story</button>
+                <button class="btn btn-primary" @click="generateStoryProduction">Generate story</button>
             </form>
         </div>
 

@@ -162,11 +162,6 @@ const generateStoryProduction = async () => {
             challenges: challenges.value,
             outcomes: outcomes.value,
             language: language.value
-        }, {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            },
         });
         result.value = response.data;
     } catch (error) {

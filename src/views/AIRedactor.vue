@@ -3,8 +3,8 @@
     <h3 class="description" v-if="userInput.length === 0 && !isMessageSended">Enter the language you want and input the
       text, then click the button to proceed!</h3>
     <div class="settingArea" v-if="!isMessageSended">
-      <div class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput"
-          v-model="language" placeholder="Type the language" /></div>
+      <div class="languageArea"><label class="languageLabel" for="languageInput">Language: </label> <input type="text" class="languageInput"
+          v-model="language" placeholder="Type the language" id="languageInput"/></div>
       <div class="btnContainer" :class="{ 'appear-button': userInput.length > 0 }" v-if="userInput.length > 0">
         <div class="btn">
           <button class="clickHereBtn" @click="sendTextProduction">Send</button>
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="info-section" v-if="!isMessageSended">
-      <textarea class="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here"></textarea>
+      <textarea class="textarea" id="textarea" ref="textAreaRef" v-model="userInput" placeholder="Type your text here"></textarea>
       <div class="result">
         <div v-if="result">
           <div style="display: flex; align-items: center; color: white;" v-if="result">

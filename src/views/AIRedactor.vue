@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <h3 class="description" v-if="userInput.length === 0 && !isMessageSended">Enter the language you want and input the
-      text in the box, then click the send button to proceed!</h3>
+      text, then click the button to proceed!</h3>
     <div class="settingArea" v-if="!isMessageSended">
       <div class="languageArea"><label class="languageLabel">Language: </label> <input type="text" class="languageInput"
           v-model="language" placeholder="Type the language" /></div>

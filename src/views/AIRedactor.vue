@@ -77,7 +77,8 @@ const sendTextProduction = async () => {
   try {
     isMessageSended.value = true;
     result.value = null;
-    const response = await axios.post('https://tfg-backend-mu.vercel.app/simplify-text', {
+    // const response = await axios.post('https://tfg-backend-mu.vercel.app/simplify-text', {
+      const response = await axios.post('https://tfg-backend-2gsw.onrender.com/simplify-text', {
       prompt: userInput.value,
       language: language.value
     });

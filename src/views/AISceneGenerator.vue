@@ -153,7 +153,6 @@ const generateStoryDevelopment = async () => {
 const generateStoryProduction = async () => {
     try {
         isMessageSended.value = true;
-        // const response = await axios.post('https://tfg-backend-mu.vercel.app/generate-story', {
         const response = await axios.post('https://tfg-backend-2gsw.onrender.com/generate-story', {
             name: name.value,
             age: age.value,

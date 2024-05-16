@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid aiSceneGenerator">
+    <div class="container-fluid aiSocialHistoryGenerator">
         <h3 class="description" v-if="!isMessageSended">Fill the form to generate an social story!</h3>
         <div class="formSection" v-if="!isMessageSended">
             <div class="row mb-3">
@@ -172,7 +172,7 @@ const generateStoryProduction = async () => {
 </script>
 
 <style scoped>
-.aiSceneGenerator {
+.aiSocialHistoryGenerator {
     display: flex;
     flex-direction: column;
     justify-content: center;

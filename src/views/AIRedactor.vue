@@ -46,18 +46,6 @@ const textAreaRef = ref(null);
 const isMessageSended = ref(false);
 
 
-const sendHelloWorld = async () => {
-  try {
-    const response = await axios.post('http://localhost:8000/hello', {
-      prompt: userInput.value,
-      language: language.value
-    });
-    result.value = response.data;
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
 const sendText = async () => {
   try {
     isMessageSended.value = true;

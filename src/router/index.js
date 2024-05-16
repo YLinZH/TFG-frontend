@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import AIRedactor from "@/views/AIRedactor.vue";
-import AISceneGenerator from "@/views/AISceneGenerator.vue";
+import AISocialHistoryGenerator from "@/views/AISocialHistoryGenerator.vue";
 import page404 from "@/views/404.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +17,9 @@ const router = createRouter({
       component: AIRedactor,
     },
     {
-      path: "/AISceneGenerator",
-      name: "AISceneGenerator",
-      component: AISceneGenerator,
+      path: "/AISocialHistoryGenerator ",
+      name: "AISocialHistoryGenerator ",
+      component: AISocialHistoryGenerator,
     },
     {
       path: "/page404",

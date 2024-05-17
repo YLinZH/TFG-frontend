@@ -17,8 +17,8 @@ const router = createRouter({
       component: AIRedactor,
     },
     {
-      path: "/AISocialHistoryGenerator ",
-      name: "AISocialHistoryGenerator ",
+      path: "/AISocialHistoryGenerator",
+      name: "AISocialHistoryGenerator",
       component: AISocialHistoryGenerator,
     },
     {

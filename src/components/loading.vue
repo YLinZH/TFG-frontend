@@ -1,4 +1,5 @@
 <template>
+  <!-- Component de Loading quan està carregant les dades -->
     <div>
       <div id="container">
         <div class="wrapper">

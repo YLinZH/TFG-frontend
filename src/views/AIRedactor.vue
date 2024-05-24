@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <h3 class="description" v-if="userInput.length === 0 && !isMessageSended">Enter the language you want and input the
-      text, then click the button to proceed!</h3>
+      text, then click the button to simplify the text!</h3>
     <div class="settingArea" v-if="!isMessageSended">
       <div class="languageArea"><label class="languageLabel" for="languageInput">Language: </label> <input type="text" class="languageInput"
           v-model="language" placeholder="Type the language" id="languageInput"/></div>
@@ -45,10 +45,10 @@ const language = ref("català");
 const textAreaRef = ref(null);
 const isMessageSended = ref(false);
 
-
+// funció de enviar el text original cap a backend per simplificar. Mode de desenvolupament
 const sendText = async () => {
   try {
-    isMessageSended.value = true;
+    isMessageSended.value = true; // variable per mostrar o ocultar el component Loading
     result.value = null;
     const response = await axios.post('http://localhost:8000/simplify-text', {
       prompt: userInput.value,
@@ -61,9 +61,10 @@ const sendText = async () => {
   }
 };
 
+// funció de enviar el text original cap a backend per simplificar. Mode de producció
 const sendTextProduction = async () => {
   try {
-    isMessageSended.value = true;
+    isMessageSended.value = true; // variable per mostrar o ocultar el component Loading
     result.value = null;
       const response = await axios.post('https://tfg-backend-2gsw.onrender.com/simplify-text', {
       prompt: userInput.value,

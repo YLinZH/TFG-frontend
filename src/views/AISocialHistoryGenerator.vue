@@ -111,7 +111,7 @@ const challenges = ref('');
 const outcomes = ref('');
 const language = ref('');
 
-
+// funció de resetejar les dades
 const resetData = () => {
     name.value = '';
     age.value = null;
@@ -123,12 +123,14 @@ const resetData = () => {
     language.value = '';
 }
 
+// funció per tornar a la pàgina de formulari
 const backToForm = () => {
     isMessageSended.value = false;
     result.value = null;
     resetData();
 }
 
+// funció per generar la història social en desenvolupament
 const generateStoryDevelopment = async () => {
     try {
         isMessageSended.value = true;
@@ -150,6 +152,7 @@ const generateStoryDevelopment = async () => {
 
 };
 
+// funció per generar la història social en producció
 const generateStoryProduction = async () => {
     try {
         isMessageSended.value = true;

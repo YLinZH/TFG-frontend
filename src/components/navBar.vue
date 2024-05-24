@@ -11,7 +11,7 @@
                     <RouterLink class="nav-link" to="/AIRedactor">AI Redactor</RouterLink>
                 </li>
                 <li class="nav-item">
-                    <RouterLink class="nav-link" to="/AISocialHistoryGenerator">AI Scene Generator</RouterLink>
+                    <RouterLink class="nav-link" to="/AISocialHistoryGenerator">AI Social History Generator</RouterLink>
                 </li>
             </ul>
         </div>

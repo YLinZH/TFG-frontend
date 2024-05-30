@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid aiSocialHistoryGenerator">
-        <h3 class="description" v-if="!isMessageSended">Fill the form to generate an social story!</h3>
+        <h3 class="description" v-if="!isMessageSended">Fill the form to generate a social story!</h3>
         <div class="formSection" v-if="!isMessageSended">
             <div class="row mb-3">
                 <div class="col">
